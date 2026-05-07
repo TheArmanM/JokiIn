@@ -4,13 +4,20 @@ import { ShieldCheck, Database, Code, Sparkles } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#000a12]">
-      {/* Background Effect: Efek Grid atau Cahaya agar tidak flat */}
-      <div className="absolute inset-0 z-0 opacity-30">
+    /* 
+      PERUBAHAN: 
+      1. Menghapus pt-20 karena spasi sudah diatur oleh 'Spacer' di Navbar.tsx.
+      2. Menggunakan min-h-[calc(100vh-80px)] agar tinggi tetap proporsional 
+         terhadap viewport setelah dikurangi tinggi navbar.
+    */
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden bg-[#000a12]">
+      
+      {/* Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 text-center py-12 md:py-20">
         {/* Badge Animasi */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -21,12 +28,12 @@ export default function Hero() {
           <span>Solusi Tugas & Olah Data Terpercaya</span>
         </motion.div>
 
-        {/* Heading dengan Tipografi Kuat */}
+        {/* Heading */}
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter"
+          className="text-5xl md:text-8xl font-black text-white leading-[1.1] tracking-tighter"
         >
           SOLUSI <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">AKURAT</span> <br />
           TUGAS MENINGKAT
@@ -39,11 +46,10 @@ export default function Hero() {
           transition={{ delay: 0.3 }}
           className="mt-8 text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
         >
-          Bantu Tugas Kuliah Jadi Lebih Mudah!
-Spesialis dalam analisis data, coding Python, dan penulisan laporan penelitian. Dikerjakan oleh tim ahli yang berpengalaman di bidangnya.
+          Bantu Tugas Kuliah Jadi Lebih Mudah! Spesialis dalam analisis data, coding Python, dan penulisan laporan penelitian. Dikerjakan oleh tim ahli profesional.
         </motion.p>
 
-        {/* Tombol dengan Efek Shadow */}
+        {/* Buttons */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -58,7 +64,7 @@ Spesialis dalam analisis data, coding Python, dan penulisan laporan penelitian. 
           </a>
         </motion.div>
 
-        {/* Keunggulan Singkat (Floating Icons) */}
+        {/* Key Features */}
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,8 +91,8 @@ Spesialis dalam analisis data, coding Python, dan penulisan laporan penelitian. 
       </div>
 
       {/* Decorative Blur Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
     </section>
   );
 }

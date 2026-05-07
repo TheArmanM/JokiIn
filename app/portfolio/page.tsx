@@ -38,7 +38,7 @@ export default function PortfolioPage() {
     <main className="min-h-screen bg-gray-50">
       <PageHeader 
         title="Portofolio Kami" 
-        subtitle="Lihat hasil kerja nyata kami dalam menangani berbagai tugas IT dan olah data." 
+        subtitle="Lihat hasil kerja nyata kami dalam menangani berbagai tugas dan olah data." 
       />
       <section className="pt-20 pb-20 px-6">
         <div className="max-w-7xl mx-auto">

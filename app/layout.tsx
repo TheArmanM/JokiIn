@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer"; // Import Footer
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className={inter.className}>
+    <html lang="id" className="scroll-smooth">
+      <body className={`${inter.className} bg-[#000a12] text-white`}>
         <Navbar />
-        {children}
-        <Footer /> {/* Footer diletakkan di sini */}
+        {/* Main di sini akan otomatis mengikuti dorongan Navbar jika kita setting di component */}
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

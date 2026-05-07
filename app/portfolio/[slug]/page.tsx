@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { 
   ArrowLeft, Sigma, ClipboardCheck, Activity, Binary, Layout, 
   Calculator, BarChart3, BrainCircuit, ListChecks, PieChart,
-  FileSearch, Code2, PenTool, CheckCircle2, Globe
+  FileSearch, Code2, PenTool, CheckCircle2, Globe, ChevronDown, Check
 } from "lucide-react";
 import Link from "next/link";
 
@@ -22,6 +22,7 @@ import ScatterSection from "@/components/stats/ScatterSection";
 export default function PortfolioDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const [activeDemo, setActiveDemo] = useState("deskriptif");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // --- 1. DATA DATABASE PORTOFOLIO ---
   const portfolioData: Record<string, any> = {
@@ -54,9 +55,7 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
     }
   };
 
-  // --- 2. LOGIKA PILIHAN TAMPILAN ---
-  
-  // A. JIKA SLUG ADALAH DEMO (ANALISIS DATA)
+  // --- 2. LOGIKA PILIHAN TAMPILAN DEMO (LIGHT MODE) ---
   if (slug === "analisis-data") {
     const menuDemos = [
       { id: "deskriptif", label: "01. Deskriptif", icon: <Sigma size={18}/> },
@@ -71,16 +70,20 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
       { id: "scatter", label: "10. Sebaran Data", icon: <PieChart size={18}/> },
     ];
 
+    const activeMenu = menuDemos.find(m => m.id === activeDemo);
+
     return (
-      <main className="min-h-screen bg-[#F8FAFC]">
+      <main className="min-h-screen bg-[#F8FAFC] text-gray-950">
         <Navbar />
-        <div className="pt-24 flex h-screen overflow-hidden">
+        <div className="pt-24 flex flex-col md:flex-row h-screen overflow-hidden">
+          
+          {/* SIDEBAR (Desktop - Kembali ke Putih Terang) */}
           <aside className="w-[30%] bg-white border-r border-gray-200 overflow-y-auto p-6 hidden md:block">
             <Link href="/portfolio" className="flex items-center gap-2 text-gray-400 mb-8 hover:text-blue-600 transition text-sm">
               <ArrowLeft size={16} /> Back to Portfolio
             </Link>
             <div className="mb-6">
-              <h1 className="text-xl font-black text-navy uppercase tracking-tighter">Statistix Engine</h1>
+              <h1 className="text-xl font-black text-[#000a12] uppercase tracking-tighter">Statistix Engine</h1>
               <p className="text-[10px] text-blue-600 font-bold uppercase tracking-widest">Interactive Demo</p>
             </div>
             <nav className="space-y-1">
@@ -89,7 +92,9 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
                   key={item.id}
                   onClick={() => setActiveDemo(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                    activeDemo === item.id ? "bg-blue-600 text-white shadow-lg shadow-blue-200" : "text-gray-500 hover:bg-gray-50"
+                    activeDemo === item.id 
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-200" 
+                      : "text-gray-500 hover:bg-gray-50"
                   }`}
                 >
                   {item.icon} {item.label}
@@ -97,17 +102,61 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
               ))}
             </nav>
           </aside>
-          <section className="flex-1 overflow-y-auto bg-[#FDFDFD] p-6 md:p-12">
+
+          {/* AREA KONTEN UTAMA */}
+          <section className="flex-1 overflow-y-auto bg-[#FDFDFD] p-6 md:p-12 relative">
+            
+            {/* DROPDOWN MOBILE (Gaya Terang Elegan) */}
+            <div className="md:hidden sticky top-0 z-30 mb-6">
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full flex items-center justify-between bg-white border border-gray-200 p-4 rounded-2xl text-gray-900 shadow-lg"
+              >
+                <div className="flex items-center gap-3 font-bold text-blue-600">
+                  {activeMenu?.icon}
+                  <span>{activeMenu?.label}</span>
+                </div>
+                <ChevronDown className={`transition-transform duration-300 text-gray-500 ${isDropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 w-full mt-2 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                  <div className="max-h-[60vh] overflow-y-auto p-2">
+                    {menuDemos.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setActiveDemo(item.id);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between p-4 rounded-xl text-sm font-bold mb-1 transition-all ${
+                          activeDemo === item.id 
+                            ? "bg-blue-50 text-blue-600" 
+                            : "text-gray-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">{item.icon} {item.label}</div>
+                        {activeDemo === item.id && <Check size={16} />}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* RENDER KOMPONEN DEMO */}
             <div className="max-w-4xl mx-auto pb-20">
-              {activeDemo === "deskriptif" && <DescriptiveSection />}
-              {activeDemo === "validitas" && <ValiditySection />}
-              {activeDemo === "reliabilitas" && <ReliabilitySection />}
-              {activeDemo === "normalitas" && <NormalitySection />}
-              {activeDemo === "ttest" && <TTestSection />}
-              {activeDemo === "regresi" && <RegressionSection />}
-              {(activeDemo === "hetero" || activeDemo === "multi") && <AssumptionsSection />}
-              {activeDemo === "tren" && <TrendSection />}
-              {activeDemo === "scatter" && <ScatterSection />}
+              <div key={activeDemo} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                {activeDemo === "deskriptif" && <DescriptiveSection />}
+                {activeDemo === "validitas" && <ValiditySection />}
+                {activeDemo === "reliabilitas" && <ReliabilitySection />}
+                {activeDemo === "normalitas" && <NormalitySection />}
+                {activeDemo === "ttest" && <TTestSection />}
+                {activeDemo === "regresi" && <RegressionSection />}
+                {(activeDemo === "hetero" || activeDemo === "multi") && <AssumptionsSection />}
+                {activeDemo === "tren" && <TrendSection />}
+                {activeDemo === "scatter" && <ScatterSection />}
+              </div>
             </div>
           </section>
         </div>
@@ -115,16 +164,16 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
     );
   }
 
-  // B. JIKA SLUG ADALAH DETAIL PORTOFOLIO BIASA
+  // --- 3. LOGIKA DETAIL PORTOFOLIO BIASA (KEMBALI KE LIGHT MODE ASLI) ---
   const project = portfolioData[slug];
-  if (!project) return <div className="pt-40 text-center font-bold">Project "{slug}" Not Found.</div>;
+  if (!project) return <div className="pt-40 text-center font-bold text-gray-950 bg-white min-h-screen">Project "{slug}" Not Found.</div>;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white text-gray-950">
       <Navbar />
       <section className="pt-32 pb-20 px-6 max-w-6xl mx-auto">
-        <Link href="/portfolio" className="text-gray-400 hover:text-blue-600 flex items-center gap-2 mb-12 transition font-medium">
-          <ArrowLeft size={18}/> Kembali ke Portfolio
+        <Link href="/portfolio" className="text-gray-400 hover:text-blue-600 flex items-center gap-2 mb-12 transition font-medium group">
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform"/> Kembali ke Portfolio
         </Link>
         
         <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -132,35 +181,35 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
             <div className="flex items-center gap-3 mb-6">
               <span className="bg-blue-50 text-blue-600 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">{project.category}</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-black text-navy leading-[1.1] mb-10 tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-black text-[#000a12] leading-[1.1] mb-10 tracking-tight">
               {project.title}
             </h1>
             
             <div className="space-y-12">
-              <div className="group">
-                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-navy">
-                  <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm">01</span>
+              <div>
+                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-[#000a12]">
+                  <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-black">01</span>
                   Masalah & Tantangan
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed pl-11">{project.problem}</p>
               </div>
 
-              <div className="group">
-                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-navy">
-                  <span className="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center text-sm">02</span>
+              <div>
+                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-[#000a12]">
+                  <span className="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center text-sm font-black">02</span>
                   Solusi yang Diterapkan
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed pl-11">{project.solution}</p>
               </div>
 
-              <div className="group">
-                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-navy">
-                  <span className="w-8 h-8 rounded-lg bg-orange-500 text-white flex items-center justify-center text-sm">03</span>
+              <div>
+                <h3 className="text-xl font-bold flex items-center gap-3 mb-4 text-[#000a12]">
+                  <span className="w-8 h-8 rounded-lg bg-orange-500 text-white flex items-center justify-center text-sm font-black">03</span>
                   Key Deliverables
                 </h3>
                 <ul className="pl-11 grid grid-cols-1 gap-4">
                   {project.results.map((res: string, idx: number) => (
-                    <li key={idx} className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:border-blue-200 transition font-medium text-navy">
+                    <li key={idx} className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:border-blue-200 transition font-medium text-[#000a12]">
                       <CheckCircle2 className="text-green-500" size={20} /> {res}
                     </li>
                   ))}
@@ -169,7 +218,7 @@ export default function PortfolioDetailPage({ params }: { params: Promise<{ slug
             </div>
           </div>
 
-          <aside className="bg-navy p-12 rounded-[3.5rem] text-white sticky top-32">
+          <aside className="bg-[#000a12] p-12 rounded-[3.5rem] text-white sticky top-32 shadow-2xl">
             <div className="mb-8">{project.icon}</div>
             <h4 className="text-2xl font-bold mb-6">Project Overview</h4>
             <div className="space-y-6 mb-10">

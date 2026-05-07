@@ -1,29 +1,16 @@
 import Navbar from "../components/Navbar";
 import WhatsAppButton from "../components/WhatsAppButton";
 import Hero from "@/components/Hero";
+import background from "../assets/images/hero.png"
 
 export default function Home() {
   return (
     <main className="relative">
 
       <Hero />
-      {/* Hero Section
-      <section className="bg-navy pt-40 pb-32 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tighter">
-            Tugas Selesai, <br/> <span className="text-blue-500">Tanpa Pusing.</span>
-          </h1>
-          <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Pakar Olah Data SPSS, Python, dan Excel. Pengerjaan sistematis, profesional, dan rapi.
-          </p>
-          <div className="flex justify-center gap-4">
-            <a href="#harga" className="bg-white text-navy px-8 py-4 rounded-xl font-bold hover:bg-blue-500 hover:text-white transition-all">Lihat Pricelist</a>
-          </div>
-        </div>
-      </section> */}
-
+      
       {/* Placeholder Section Harga */}
-      <section id="harga" className="py-24 px-6 bg-white">
+      <section id="harga" className="py-24 px-6 bg-white " >
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-12">Layanan Terpopuler</h2>
           <div className="grid md:grid-cols-3 gap-8">

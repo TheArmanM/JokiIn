@@ -7,11 +7,7 @@ import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "JokiIn - Solusi Tugas Kuliah & Olah Data",
-  description: "Jasa olah data SPSS, Python, Excel dan penulisan tugas IT profesional.",
-};
-
+// app/layout.tsx
 export default function RootLayout({
   children,
 }: {
@@ -19,10 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className="scroll-smooth">
-      <body className={`${inter.className} bg-[#000a12] text-white`}>
+      <body className={`${inter.className} bg-[#000a12] text-white min-h-screen flex flex-col`}>
         <Navbar />
-        {/* Main di sini akan otomatis mengikuti dorongan Navbar jika kita setting di component */}
-        <main>{children}</main>
+        {/* flex-1 memastikan main mengambil seluruh ruang kosong yang tersedia */}
+        <main className="flex-1 w-full">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

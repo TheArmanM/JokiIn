@@ -7,7 +7,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full top-0 z-[100] bg-navy/95 backdrop-blur-md border-b border-white/5 py-4 transition-all duration-300">
+    <nav className="fixed w-full top-0 z-[100] bg-[#030712]/95 backdrop-blur-md border-b border-white/5 py-4 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -23,9 +23,14 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 text-white/80 text-sm items-center">
-            <a href="/#harga" className="hover:text-blue-500 transition font-medium">Harga</a>
             <Link href="/services" className="hover:text-blue-500 transition font-medium">Layanan</Link>
+            
+            {/* Menu Demo ditambahkan di Desktop agar sinkron */}
+            <Link href="/demo" className="hover:text-blue-500 transition font-medium">Demo Data</Link>
+            
             <Link href="/portfolio" className="hover:text-blue-500 transition font-medium">Portofolio</Link>
+            <a href="/pricelist" className="hover:text-blue-500 transition font-medium">Harga</a>
+            
             <a 
               href="https://wa.me/6285183081282" 
               className="bg-blue-600 px-5 py-2 rounded-full text-white font-semibold hover:bg-blue-700 transition"
@@ -51,9 +56,14 @@ export default function Navbar() {
         >
           <div className="overflow-hidden">
             <div className="flex flex-col gap-5 pb-6">
-              <a href="/#harga" onClick={() => setIsOpen(false)} className="text-white/80 font-bold text-lg border-b border-white/5 pb-2">Harga</a>
               <Link href="/services" onClick={() => setIsOpen(false)} className="text-white/80 font-bold text-lg border-b border-white/5 pb-2">Layanan</Link>
+              
+              {/* Menu Demo di Mobile */}
+              <Link href="/demo" onClick={() => setIsOpen(false)} className="text-white/80 font-bold text-lg border-b border-white/5 pb-2">Demo Data</Link>
+              
               <Link href="/portfolio" onClick={() => setIsOpen(false)} className="text-white/80 font-bold text-lg border-b border-white/5 pb-2">Portofolio</Link>
+              <a href="/pricelist" onClick={() => setIsOpen(false)} className="text-white/80 font-bold text-lg border-b border-white/5 pb-2">Harga</a>
+              
               <a 
                 href="https://wa.me/6285183081282" 
                 className="bg-blue-600 w-full text-center py-4 rounded-xl text-white font-black shadow-lg"

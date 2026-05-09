@@ -1,23 +1,24 @@
 import React from 'react';
 import { ArrowRight, ShieldCheck, FileText, ArrowUpRight } from 'lucide-react';
 
-// Import gambar dari folder assets
-import heroBg from '../assets/images/hero.png'; 
+// IMPORT GAMBAR DIHAPUS karena file di folder public 
+// langsung diakses via path string.
 
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#020617] p-6">
       
-      {/* 1. BACKGROUND UTAMA (Tetap Tajam/Clear) */}
+      {/* 1. BACKGROUND UTAMA */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        // Memanggil langsung dari folder public/assets/images/hero.png
+        style={{ backgroundImage: "url('/assets/images/hero.png')" }}
       >
         {/* Overlay gelap tipis agar gambar asli tidak terlalu terang */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      {/* 2. KARTU GLASSMORPHISM (Elemen Utama di Gambar) */}
+      {/* 2. KARTU GLASSMORPHISM */}
       <div className="relative z-20 w-full max-w-5xl">
         <div className="relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/10 backdrop-blur-2xl shadow-2xl p-8 md:p-20 text-center">
           
@@ -35,7 +36,7 @@ export default function HeroSection() {
             </span>
           </div>
           
-          {/* Heading - Menggunakan Font Bold & Bersih */}
+          {/* Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6">
             CEPAT. AKURAT.<br />
             TERPERCAYA.
@@ -46,7 +47,7 @@ export default function HeroSection() {
             Mulai dari <span className="font-bold text-white">30RB</span>. Olah data statistik, penulisan makalah, hingga desain presentasi premium dikerjakan dengan standar tinggi oleh tim profesional.
           </p>
 
-          {/* Tombol dengan gaya persis seperti di gambar */}
+          {/* Tombol */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
               href="/pricelist" 

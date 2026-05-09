@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import { ArrowRight, CheckCircle2, Star, ShieldCheck, Clock, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import TestimonialCarousel from "@/components/LogoCarousel";
+import WhyChooseUs from "@/components/WhyChooseUs";
 
 export default function Home() {
   return (
@@ -144,6 +145,7 @@ export default function Home() {
 
       {/* Testimoni Ganti Logo Carousel */}
       <TestimonialCarousel />
+      <WhyChooseUs />
 
       <WhatsAppButton />
     </main>

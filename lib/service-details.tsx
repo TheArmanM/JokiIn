@@ -3,7 +3,7 @@
 export const serviceDetails = {
   "olah-data": {
     title: "Olah Data & Statistik",
-    basePrice: "Rp75.000",
+    basePrice: "Rp50.000",
     items: [
       { name: "Analisis SPSS & Excel", desc: "Uji hipotesis lengkap" },
       { name: "Uji Asumsi Klasik", desc: "Normalitas, Multikol, dll" },

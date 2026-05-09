@@ -2,105 +2,148 @@
 
 import WhatsAppButton from "../components/WhatsAppButton";
 import Hero from "@/components/Hero";
-import { ArrowRight, CheckCircle2, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, Star, ShieldCheck, Clock, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import TestimonialCarousel from "@/components/LogoCarousel";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      {/* Background Decor Global - Menggunakan brand-primary dari global CSS */}
+      {/* Background Decor Global */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-primary/5 blur-[120px] -z-10" />
       
       <Hero />
+
+      {/* Section Value Proposition - Empati Mahasiswa */}
+      {/* Section Value Proposition - Empati Mahasiswa */}
+<section className="py-24 px-6 relative overflow-hidden">
+  {/* Dekorasi cahaya di belakang agar tidak flat */}
+  <div className="absolute top-0 left-1/4 w-64 h-64 bg-brand-primary/5 blur-[100px] -z-10" />
+  
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    {[
+      {
+        title: "Privasi Aman",
+        desc: "Identitas dan data penelitian kamu dijamin kerahasiaannya 100%.",
+        icon: <ShieldCheck size={28} />,
+      },
+      {
+        title: "Bimbingan Detail",
+        desc: "Hasil kerja dijelaskan sampai kamu paham untuk bahan bimbingan dosen.",
+        icon: <MessageCircle size={28} />,
+      },
+      {
+        title: "Pengerjaan Cepat",
+        desc: "Deadline mepet? Tenang, kami bantu selesaikan tepat waktu.",
+        icon: <Clock size={28} />,
+      },
+    ].map((item, idx) => (
+      <div 
+        key={idx} 
+        className="group relative p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-brand-primary/30 hover:bg-white/[0.05] transition-all duration-500"
+      >
+        <div className="flex flex-col items-center text-center space-y-5">
+          {/* Icon Container dengan Glow saat Hover */}
+          <div className="p-4 bg-gradient-to-br from-brand-primary/20 to-transparent rounded-2xl text-brand-primary group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-500">
+            {item.icon}
+          </div>
+          
+          <div className="space-y-2">
+            <h4 className="text-white font-bold uppercase tracking-[0.2em] text-[11px]">
+              {item.title}
+            </h4>
+            <p className="text-slate-400 text-xs leading-relaxed max-w-[200px]">
+              {item.desc}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
       
-      {/* Section Harga Terpopuler */}
+      {/* Section Layanan */}
       <section id="harga" className="py-32 px-6 relative overflow-hidden">
-        {/* Glow Decor Tengah */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-primary/5 blur-[120px] -z-10"></div>
 
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            {/* Tag h2 otomatis menggunakan gaya font-black, italic, uppercase dari globals.css */}
-            <h2>
-              LAYANAN <span className="text-brand-primary">TERPOPULER</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+              SOLUSI <span className="text-brand-primary">TUGAS AKHIR</span>
             </h2>
-            <p className="text-muted font-bold italic uppercase text-[10px] tracking-[0.3em] mt-4">
-              Solusi Cepat untuk Tugas Akademik & Profesional
+            <p className="text-slate-500 font-bold uppercase text-[10px] tracking-[0.4em] mt-4">
+              Bantuan Profesional untuk Mahasiswa Berbagai Jurusan
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 items-center">
             
-            {/* Card Excel - Menggunakan .glass-card */}
-            <div className="group glass-card p-10 hover:border-brand-primary/30">
-              <h3 className="font-black text-white text-2xl uppercase italic mb-2 tracking-tight">Olah Data Excel</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-secondary text-[10px] font-black uppercase italic tracking-widest">Start</span>
-                <p className="text-5xl font-black text-white italic tracking-tighter">30k</p>
+            {/* Card Olah Data - General */}
+            <div className="group bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/5 hover:border-brand-primary/30 transition-all duration-500">
+              <h3 className="font-bold text-white text-2xl mb-2 tracking-tight">Olah Data Penelitian</h3>
+              <div className="flex items-baseline gap-2 mb-8">
+                <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Mulai</span>
+                <p className="text-5xl font-bold text-white tracking-tighter">30k</p>
               </div>
               <ul className="text-left space-y-4 mb-12">
-                {["Cleaning Data", "Rumus & Pivot", "Visualisasi Grafik"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-secondary text-sm font-bold italic">
-                    <CheckCircle2 size={16} className="text-brand-primary" /> {item}
+                {["Input & Cleaning Data", "Visualisasi Tabel/Grafik", "Analisis Deskriptif"].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                    <CheckCircle2 size={18} className="text-brand-primary" /> {item}
                   </li>
                 ))}
               </ul>
-              <Link href="/services" className="block text-center py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase italic text-[10px] tracking-widest hover:bg-brand-primary hover:border-brand-primary transition-all">
-                Detail Layanan
+              <Link href="https://wa.me/your-number" className="block text-center py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold uppercase text-[10px] tracking-[0.2em] hover:bg-brand-primary transition-all">
+                Tanya Dulu Yuk
               </Link>
             </div>
             
-            {/* Card SPSS (Best Seller / Highlighted) */}
-            <div className="group p-10 bg-card border-2 border-brand-primary rounded-[3rem] shadow-[0_0_50px_rgba(59,130,246,0.15)] relative scale-105 z-20">
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-primary text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] italic flex items-center gap-2 shadow-lg">
-                <Star size={12} fill="white" /> Best Seller
+            {/* Card Bab 4/Skripsi (Best Seller) */}
+            <div className="group p-10 bg-white/[0.08] border-2 border-brand-primary rounded-[2.5rem] shadow-[0_0_50px_rgba(59,130,246,0.15)] relative md:scale-105 z-20">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-primary text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 shadow-lg">
+                <Star size={12} fill="white" /> Terlaris
               </div>
-              <h3 className="font-black text-white text-2xl uppercase italic mb-2 tracking-tight">Statistik SPSS</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-brand-primary text-[10px] font-black uppercase italic tracking-widest">Start</span>
-                <p className="text-5xl font-black text-white italic tracking-tighter">75k</p>
+              <h3 className="font-bold text-white text-2xl mb-2 tracking-tight">Analisis Bab 4 (SPSS)</h3>
+              <div className="flex items-baseline gap-2 mb-8">
+                <span className="text-brand-primary text-xs font-bold uppercase tracking-widest">Mulai</span>
+                <p className="text-5xl font-bold text-white tracking-tighter">75k</p>
               </div>
               <ul className="text-left space-y-4 mb-12">
-                {["Validitas & Reliabilitas", "Uji Asumsi Klasik", "Interpretasi Hasil Bab 4"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-primary text-sm font-bold italic">
-                    <CheckCircle2 size={16} className="text-brand-primary" /> {item}
+                {["Olah Kuesioner Lengkap", "Uji Hipotesis & Asumsi", "Penjelasan Interpretasi"].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-white text-sm font-medium">
+                    <CheckCircle2 size={18} className="text-brand-primary" /> {item}
                   </li>
                 ))}
               </ul>
-              {/* Menggunakan .btn-primary dari global CSS */}
-              <Link href="/services" className="btn-primary py-5 text-[10px] tracking-widest hover:scale-[1.02] active:scale-95">
-                Order Sekarang <ArrowRight size={14} />
+              <Link href="https://wa.me/your-number" className="btn-primary py-4 text-[10px] font-bold tracking-[0.2em] uppercase hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
+                Konsultasi Gratis <ArrowRight size={16} />
               </Link>
             </div>
 
-            {/* Card Word - Menggunakan .glass-card */}
-            <div className="group glass-card p-10 hover:border-brand-primary/30">
-              <h3 className="font-black text-white text-2xl uppercase italic mb-2 tracking-tight">Formatting Word</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-secondary text-[10px] font-black uppercase italic tracking-widest">Start</span>
-                <p className="text-5xl font-black text-white italic tracking-tighter">30k</p>
+            {/* Card Rapikan Skripsi */}
+            <div className="group bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/5 hover:border-brand-primary/30 transition-all duration-500">
+              <h3 className="font-bold text-white text-2xl mb-2 tracking-tight">Rapikan Skripsi</h3>
+              <div className="flex items-baseline gap-2 mb-8">
+                <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Mulai</span>
+                <p className="text-5xl font-bold text-white tracking-tighter">30k</p>
               </div>
               <ul className="text-left space-y-4 mb-12">
-                {["Daftar Isi Otomatis", "Daftar Pustaka", "Standar Penulisan"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-secondary text-sm font-bold italic">
-                    <CheckCircle2 size={16} className="text-brand-primary" /> {item}
+                {["Daftar Isi/Tabel Otomatis", "Cek Penulisan (Typo)", "Format Sesuai Pedoman"].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                    <CheckCircle2 size={18} className="text-brand-primary" /> {item}
                   </li>
                 ))}
               </ul>
-              <Link href="/services" className="block text-center py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase italic text-[10px] tracking-widest hover:bg-brand-primary hover:border-brand-primary transition-all">
-                Detail Layanan
+              <Link href="https://wa.me/your-number" className="block text-center py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold uppercase text-[10px] tracking-[0.2em] hover:bg-brand-primary transition-all">
+                Cek Harga
               </Link>
             </div>
 
-          </div>
-
-          <div className="mt-24 text-center">
-             <Link href="/services" className="inline-flex items-center gap-3 text-muted hover:text-brand-primary transition-colors font-black uppercase italic text-[10px] tracking-[0.3em] group">
-               Lihat Semua Layanan <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-             </Link>
           </div>
         </div>
       </section>
+
+      {/* Testimoni Ganti Logo Carousel */}
+      <TestimonialCarousel />
 
       <WhatsAppButton />
     </main>

@@ -10,7 +10,8 @@ import {
   Layout, 
   FileText,
   Search,
-  Zap
+  Zap,
+  ChevronRight
 } from "lucide-react";
 
 // Import semua komponen dari folder components/stats
@@ -30,17 +31,17 @@ export default function DemoPage() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="min-h-screen bg-[#000a12]" />;
+  if (!mounted) return <div className="min-h-screen bg-main" />;
 
   // Menu Navigasi Sidebar
   const menuItems = [
-    { id: "descriptive", name: "Deskriptif", icon: <Database size={16} /> },
-    { id: "validity", name: "Uji Validitas", icon: <ShieldCheck size={16} /> },
-    { id: "reliability", name: "Uji Reliabilitas", icon: <Zap size={16} /> },
-    { id: "regression", name: "Regresi Linear", icon: <BarChart3 size={16} /> },
-    { id: "normality", name: "Uji Normalitas", icon: <Activity size={16} /> },
-    { id: "assumptions", name: "Asumsi Klasik", icon: <Binary size={16} /> },
-    { id: "ttest", name: "Uji T-Test", icon: <Layout size={16} /> },
+    { id: "descriptive", name: "Statistik Deskriptif", icon: <Database size={18} /> },
+    { id: "validity", name: "Uji Validitas", icon: <ShieldCheck size={18} /> },
+    { id: "reliability", name: "Uji Reliabilitas", icon: <Zap size={18} /> },
+    { id: "regression", name: "Analisis Regresi", icon: <BarChart3 size={18} /> },
+    { id: "normality", name: "Uji Normalitas", icon: <Activity size={18} /> },
+    { id: "assumptions", name: "Asumsi Klasik", icon: <Binary size={18} /> },
+    { id: "ttest", name: "Uji Perbedaan (T-Test)", icon: <Layout size={18} /> },
   ];
 
   // Logic Render Komponen
@@ -58,47 +59,71 @@ export default function DemoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#000a12] pt-32 pb-20 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+    <main className="min-h-screen bg-main pt-40 pb-24 px-6 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-primary/5 blur-[120px] -z-10" />
+      
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
         
         {/* Sidebar Navigasi */}
-        <aside className="lg:w-72 shrink-0">
-          <div className="bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-6 sticky top-32">
-            <div className="mb-8 px-2">
-              <h2 className="text-white font-black uppercase italic tracking-tighter text-2xl">
-                Demo <span className="text-blue-600">Data</span>
-              </h2>
-              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1 italic">
-                Standar Output JokiIn
+        <aside className="lg:w-80 shrink-0">
+          <div className="bg-card/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 sticky top-32">
+            <div className="mb-10 px-2">
+              <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-3 py-1 rounded-full mb-4">
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-primary">Live Preview</span>
+              </div>
+              <h1 className="text-white font-bold tracking-tight text-3xl">
+                DEMO<span className="text-brand-primary">DATA</span>
+              </h1>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-2 leading-relaxed">
+                Standar Output & <br />Visualisasi JokiIn
               </p>
             </div>
             
-            <nav className="space-y-2">
+            <nav className="space-y-3">
               {menuItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl font-black uppercase italic text-[11px] tracking-widest transition-all ${
+                  className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl text-[11px] font-bold uppercase tracking-widest transition-all duration-300 group ${
                     activeTab === item.id 
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]" 
-                    : "bg-white/5 text-slate-400 hover:bg-white/10"
+                    ? "bg-brand-primary text-white shadow-xl shadow-brand-primary/20" 
+                    : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  {item.icon}
-                  {item.name}
+                  <div className="flex items-center gap-4">
+                    <span className={activeTab === item.id ? "text-white" : "text-brand-primary"}>
+                      {item.icon}
+                    </span>
+                    {item.name}
+                  </div>
+                  <ChevronRight size={14} className={`transition-transform duration-300 ${activeTab === item.id ? "translate-x-1" : "opacity-0"}`} />
                 </button>
               ))}
             </nav>
+
+            <div className="mt-10 p-6 bg-brand-primary/5 border border-brand-primary/10 rounded-3xl">
+              <p className="text-slate-400 text-[10px] font-medium leading-relaxed">
+                Butuh analisis data kustom? Hubungi tim kami untuk konsultasi metodologi penelitian Anda.
+              </p>
+            </div>
           </div>
         </aside>
 
         {/* Content Area */}
-        <section className="flex-1 bg-white/[0.02] border border-white/5 rounded-[3rem] p-8 md:p-12 relative min-h-[700px]">
-          {/* Decorative Glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 blur-[120px] -z-10"></div>
+        <section className="flex-1 bg-card/20 backdrop-blur-sm border border-white/5 rounded-[3.5rem] p-8 md:p-16 relative min-h-[800px] shadow-2xl">
+          {/* Internal Glow Effect */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-primary/10 blur-[100px] -z-10 rounded-full" />
           
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out">
             {renderContent()}
+          </div>
+
+          {/* Watermark/Footer Note */}
+          <div className="mt-20 pt-10 border-t border-white/5 flex items-center gap-4 text-slate-600">
+             <FileText size={14} />
+             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Data Privacy Guaranteed • ISO 27037 Standard</span>
           </div>
         </section>
 

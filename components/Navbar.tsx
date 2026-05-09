@@ -13,10 +13,10 @@ export default function Navbar() {
           {/* Logo Section */}
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 group" onClick={() => setIsOpen(false)}>
-              <div className="w-10 h-10 bg-brand-primary rounded-lg flex items-center justify-center transition-transform group-hover:rotate-12">
-                <span className="text-white font-black text-xl italic tracking-tighter">jn</span>
+              <div className="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12">
+                <span className="text-white font-bold text-xl tracking-tighter">jn</span>
               </div>
-              <span className="text-white font-black text-xl italic uppercase tracking-tighter">
+              <span className="text-white font-bold text-xl tracking-tight">
                 Joki<span className="text-brand-primary">In</span>
               </span>
             </Link>
@@ -24,6 +24,7 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
+            {/* Menggunakan class nav-link yang sudah bersih di globals.css */}
             <Link href="/services" className="nav-link">Layanan</Link>
             <Link href="/demo" className="nav-link">Demo Data</Link>
             <Link href="/portfolio" className="nav-link">Portofolio</Link>
@@ -31,7 +32,7 @@ export default function Navbar() {
             
             <a 
               href="https://wa.me/6285183081282" 
-              className="btn-primary py-2 px-6 text-[10px] tracking-widest"
+              className="btn-primary py-2 px-6 text-sm font-semibold"
             >
               Hubungi Saya
             </a>
@@ -41,6 +42,7 @@ export default function Navbar() {
           <button 
             className="md:hidden text-white p-2 outline-none transition-colors hover:text-brand-primary"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -64,7 +66,7 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href} 
                   onClick={() => setIsOpen(false)} 
-                  className="text-white font-black text-xl italic uppercase tracking-widest border-b border-white/5 pb-3 hover:text-brand-primary transition-colors"
+                  className="text-white font-semibold text-lg border-b border-white/5 pb-3 hover:text-brand-primary transition-colors"
                 >
                   {item.name}
                 </Link>
@@ -72,7 +74,7 @@ export default function Navbar() {
               
               <a 
                 href="https://wa.me/6285183081282" 
-                className="btn-primary w-full text-center py-5 text-xs tracking-[0.2em]"
+                className="btn-primary w-full text-center py-4 text-base font-semibold"
               >
                 Hubungi Saya
               </a>
@@ -80,13 +82,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Style tambahan untuk nav-link jika belum ada di globals.css */}
-      <style jsx>{`
-        .nav-link {
-          @apply text-white/70 text-[10px] font-black uppercase italic tracking-[0.2em] hover:text-brand-primary transition-all duration-300;
-        }
-      `}</style>
     </nav>
   );
 }

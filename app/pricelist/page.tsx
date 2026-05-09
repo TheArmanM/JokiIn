@@ -35,8 +35,8 @@ const PRICELIST_PLANS = [
   },
   {
     name: "Olah Data & Statistik",
-    price: "75K",
-    label: "Most Popular",
+    price: "50K",
+    label: "Paling Populer",
     desc: "Analisis data profesional menggunakan SPSS, Excel, atau Python.",
     features: [
       "Uji Asumsi Klasik Lengkap",
@@ -88,16 +88,16 @@ export default function PricelistPage() {
 
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-24 space-y-4">
-          <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-1.5 rounded-full mb-2">
+        <div className="text-center mb-24">
+          <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-1.5 rounded-full mb-6">
             <Flame size={14} className="text-brand-primary fill-brand-primary" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary italic">Official Pricelist 2026</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-primary">Pricelist 2026</span>
           </div>
-          <h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
             INVESTASI <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-blue-400">WISUDA</span>
           </h1>
-          <p className="text-muted max-w-2xl mx-auto text-sm md:text-base font-medium italic mt-4">
-            Harga kompetitif dengan pengerjaan standar IT Profesional. Privasi terjamin 100%.
+          <p className="text-slate-400 max-w-2xl mx-auto text-base font-medium mt-6 leading-relaxed">
+            Harga kompetitif dengan pengerjaan standar profesional. Kami memastikan setiap detail tugas Anda dikerjakan dengan presisi tinggi.
           </p>
         </div>
 
@@ -106,34 +106,34 @@ export default function PricelistPage() {
           {PRICELIST_PLANS.map((plan, i) => (
             <div 
               key={i} 
-              className={`relative flex flex-col p-px rounded-[3rem] transition-all duration-500 group ${
-                plan.popular ? "scale-105 z-10" : "hover:scale-[1.02]"
+              className={`relative flex flex-col transition-all duration-500 group ${
+                plan.popular ? "md:scale-105 z-10" : "hover:scale-[1.02]"
               }`}
               onClick={() => handleBooking(plan.name)}
             >
-              <div className={`flex flex-col h-full p-8 md:p-10 rounded-[2.9rem] border backdrop-blur-3xl transition-all duration-500 cursor-pointer ${
+              <div className={`flex flex-col h-full p-8 md:p-10 rounded-[2.5rem] border backdrop-blur-3xl transition-all duration-500 cursor-pointer ${
                 plan.popular 
                 ? "bg-gradient-to-b from-brand-primary/20 to-card border-brand-primary shadow-[0_0_50px_rgba(59,130,246,0.2)]" 
-                : "glass-card group-hover:border-brand-primary/50"
+                : "glass-card border-white/5 hover:border-brand-primary/50"
               }`}>
                 
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-primary text-white text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-widest shadow-xl flex items-center gap-2">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-primary text-white text-[10px] font-bold px-6 py-2 rounded-full uppercase tracking-widest shadow-xl flex items-center gap-2">
                     <Star size={12} className="fill-white" /> Recommended
                   </div>
                 )}
 
                 <div className="mb-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-brand-primary/10 rounded-lg group-hover:scale-110 transition-transform duration-500">{plan.icon}</div>
-                    <span className="text-[10px] font-black text-brand-primary uppercase tracking-[0.3em]">{plan.label}</span>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="p-2.5 bg-brand-primary/10 rounded-xl group-hover:scale-110 transition-transform duration-500">{plan.icon}</div>
+                    <span className="text-[10px] font-bold text-brand-primary uppercase tracking-[0.2em]">{plan.label}</span>
                   </div>
-                  <h3 className="text-3xl font-black text-white italic uppercase tracking-tighter mt-1">{plan.name}</h3>
-                  <div className="mt-6 flex items-baseline gap-2">
-                    <span className="text-5xl font-black text-white tracking-tighter italic">{plan.price}</span>
-                    <span className="text-muted text-[10px] font-black uppercase italic tracking-widest">/ Start</span>
+                  <h3 className="text-2xl font-bold text-white tracking-tight mb-2">{plan.name}</h3>
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="text-5xl font-bold text-white tracking-tighter">{plan.price}</span>
+                    <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">/ Mulai</span>
                   </div>
-                  <p className="text-secondary text-xs mt-4 font-medium leading-relaxed italic">{plan.desc}</p>
+                  <p className="text-slate-400 text-sm mt-4 font-medium leading-relaxed">{plan.desc}</p>
                 </div>
 
                 <div className="space-y-4 mb-12 flex-1">
@@ -142,14 +142,14 @@ export default function PricelistPage() {
                       <div className="p-1 rounded-full bg-brand-primary/10 shrink-0 group-hover/feat:bg-brand-primary transition-colors">
                         <Check size={12} className="text-brand-primary group-hover/feat:text-white" />
                       </div>
-                      <span className="text-[13px] font-bold text-secondary italic group-hover/feat:text-white transition-colors">{feat}</span>
+                      <span className="text-sm font-medium text-slate-300 group-hover/feat:text-white transition-colors">{feat}</span>
                     </div>
                   ))}
                 </div>
 
                 <button 
-                  className={`btn-primary w-full py-5 text-[10px] tracking-widest ${
-                    !plan.popular && "bg-white/5 border-white/10 hover:bg-brand-primary"
+                  className={`btn-primary w-full py-5 text-xs font-bold tracking-widest ${
+                    !plan.popular && "bg-white/5 border border-white/10 hover:bg-brand-primary hover:border-brand-primary"
                   }`}
                 >
                   Booking Sekarang <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
@@ -161,46 +161,50 @@ export default function PricelistPage() {
 
         {/* Add-ons & Surcharge Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
-          <div className="glass-card p-8 md:p-10 hover:border-brand-primary/20 transition-colors">
-            <div className="flex items-center gap-3 mb-6">
-              <PlusCircle className="text-brand-primary" size={24} />
-              <h3 className="text-xl font-black text-white italic uppercase tracking-widest">Penyesuaian Harga</h3>
+          <div className="glass-card p-8 md:p-10 rounded-[2.5rem] border border-white/5 hover:border-brand-primary/20 transition-colors">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="p-3 bg-brand-primary/10 rounded-2xl">
+                <PlusCircle className="text-brand-primary" size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">Penyesuaian Harga</h3>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-2">
               {[
                 { item: "Volume Data (>500 baris)", price: "+50RB" },
                 { item: "Data Cleaning (Data Kotor)", price: "+30RB - 50RB" },
                 { item: "Referensi Scopus", price: "+20RB" },
                 { item: "Tingkat Kesulitan Rumus", price: "+30RB" }
               ].map((addon, i) => (
-                <div key={i} className="flex justify-between items-center py-3 border-b border-white/5 group/line">
-                  <span className="text-secondary text-xs font-bold uppercase italic group-hover/line:text-primary transition-colors">{addon.item}</span>
-                  <span className="text-brand-primary font-black italic">{addon.price}</span>
+                <div key={i} className="flex justify-between items-center py-4 border-b border-white/5 group/line">
+                  <span className="text-slate-300 text-sm font-medium group-hover/line:text-white transition-colors">{addon.item}</span>
+                  <span className="text-brand-primary font-bold">{addon.price}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-brand-primary/5 border border-brand-primary/10 rounded-[3rem] p-8 md:p-10 hover:bg-brand-primary/10 transition-all">
-            <div className="flex items-center gap-3 mb-6">
-              <Clock className="text-brand-primary" size={24} />
-              <h3 className="text-xl font-black text-white italic uppercase tracking-widest">Ketentuan Waktu</h3>
+          <div className="bg-brand-primary/5 border border-brand-primary/10 rounded-[2.5rem] p-8 md:p-10 hover:bg-brand-primary/10 transition-all">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="p-3 bg-brand-primary/10 rounded-2xl">
+                <Clock className="text-brand-primary" size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">Ketentuan Waktu</h3>
             </div>
             <div className="space-y-6">
-              <div className="bg-main/40 p-5 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all">
-                <div className="flex justify-between mb-2">
-                  <span className="text-white font-black italic uppercase text-sm">Same Day Service</span>
-                  <span className="text-brand-primary font-black">+50%</span>
+              <div className="bg-main/40 p-6 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-all">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-white font-bold text-sm">Same Day Service</span>
+                  <span className="text-brand-primary font-bold">+50%</span>
                 </div>
-                <p className="text-muted text-[10px] font-bold uppercase italic leading-relaxed">Selesai dalam &lt;12 jam kerja.</p>
+                <p className="text-slate-500 text-xs font-medium leading-relaxed">Penyelesaian prioritas dalam waktu kurang dari 12 jam kerja.</p>
               </div>
-              <div className="bg-brand-primary p-5 rounded-2xl shadow-xl shadow-brand-primary/20 group/flash cursor-pointer overflow-hidden relative">
+              <div className="bg-brand-primary p-6 rounded-2xl shadow-xl shadow-brand-primary/20 group/flash cursor-pointer overflow-hidden relative">
                 <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover/flash:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-                <div className="flex justify-between mb-2 relative z-10">
-                  <span className="text-white font-black italic uppercase text-sm">Express / Flash</span>
-                  <span className="text-white font-black uppercase italic">Double</span>
+                <div className="flex justify-between items-center mb-2 relative z-10">
+                  <span className="text-white font-bold text-sm uppercase tracking-wider">Express Flash</span>
+                  <span className="text-white font-bold">Double</span>
                 </div>
-                <p className="text-blue-100 text-[10px] font-bold uppercase italic leading-relaxed relative z-10">Prioritas Utama: Selesai dalam &lt;6 jam.</p>
+                <p className="text-blue-100 text-xs font-medium leading-relaxed relative z-10">Prioritas Utama: Selesai kilat dalam waktu kurang dari 6 jam.</p>
               </div>
             </div>
           </div>
@@ -209,17 +213,17 @@ export default function PricelistPage() {
         {/* Footer Trust Section */}
         <div className="pt-12 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: <ShieldCheck />, title: "Secure Data", desc: "Privasi Dijamin Aman" },
-              { icon: <Zap />, title: "Teknis Akurat", desc: "Standar IT Profesional" },
-              { icon: <Gem />, title: "Gratis Revisi", desc: "2x Revisi Minor" },
-              { icon: <Flame />, title: "Fast Response", desc: "Online Setiap Hari" }
+              { icon: <ShieldCheck size={20}/>, title: "Secure Data", desc: "Privasi Dijamin Aman" },
+              { icon: <Zap size={20}/>, title: "Teknis Akurat", desc: "Standar Profesional" },
+              { icon: <Gem size={20}/>, title: "Gratis Revisi", desc: "2x Revisi Minor" },
+              { icon: <Flame size={20}/>, title: "Fast Response", desc: "Online Setiap Hari" }
             ].map((item, i) => (
               <div key={i} className="text-center group cursor-default">
-                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 text-secondary group-hover:text-brand-primary group-hover:bg-brand-primary/10 group-hover:rotate-[10deg] transition-all duration-300">
+                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-400 group-hover:text-brand-primary group-hover:bg-brand-primary/10 group-hover:rotate-[10deg] transition-all duration-300">
                     {item.icon}
                 </div>
-                <h4 className="text-white font-black uppercase italic text-[10px] tracking-widest">{item.title}</h4>
-                <p className="text-muted text-[9px] font-bold uppercase mt-1 px-4 leading-relaxed italic group-hover:text-secondary transition-colors">{item.desc}</p>
+                <h4 className="text-white font-bold uppercase text-[10px] tracking-widest">{item.title}</h4>
+                <p className="text-slate-500 text-[10px] font-medium mt-1 px-4 leading-relaxed group-hover:text-slate-300 transition-colors">{item.desc}</p>
               </div>
             ))}
         </div>

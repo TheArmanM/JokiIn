@@ -8,10 +8,9 @@ interface OrderModalProps {
   selectedPackage?: string;
 }
 
-// PUSAT DATA: Layanan, Sub-Jasa, dan Harganya
 const PRICING_STRUCTURE: Record<string, Record<string, number>> = {
   "Olah Data & Statistik": {
-    "Analisis SPSS & Excel": 75000,
+    "Analisis SPSS & Excel": 50000,
     "Uji Asumsi Klasik": 80000,
     "Analisis Regresi": 85000,
     "Interpretasi Data": 50000
@@ -35,7 +34,6 @@ const PRICING_STRUCTURE: Record<string, Record<string, number>> = {
 };
 
 export default function OrderModal({ isOpen, onClose, selectedPackage }: OrderModalProps) {
-  // 1. Inisialisasi State
   const initialService = selectedPackage && PRICING_STRUCTURE[selectedPackage] 
     ? selectedPackage 
     : "Olah Data & Statistik";
@@ -52,14 +50,12 @@ export default function OrderModal({ isOpen, onClose, selectedPackage }: OrderMo
 
   const [totalHarga, setTotalHarga] = useState(0);
 
-  // 2. Logika Update Harga & Sub-Layanan Otomatis
   useEffect(() => {
     const hargaDasar = PRICING_STRUCTURE[formData.layananUtama][formData.subLayanan] || 0;
-    const multiplier = formData.isUrgent ? 1.5 : 1; // Charge 50% untuk urgent
+    const multiplier = formData.isUrgent ? 1.5 : 1;
     setTotalHarga(hargaDasar * multiplier);
   }, [formData.layananUtama, formData.subLayanan, formData.isUrgent]);
 
-  // Reset Sub-Layanan jika Layanan Utama berubah
   const handleMainServiceChange = (val: string) => {
     setFormData({
       ...formData,
@@ -94,93 +90,103 @@ export default function OrderModal({ isOpen, onClose, selectedPackage }: OrderMo
 
   return (
     <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose}></div>
       
-      <div className="relative w-full max-w-lg bg-[#0b1120] border border-white/10 rounded-[3rem] p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh] animate-in zoom-in duration-300">
-        <button onClick={onClose} className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors"><X size={24}/></button>
+      <div className="relative w-full max-w-lg bg-card border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh] animate-in zoom-in duration-300">
+        <button onClick={onClose} className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors">
+          <X size={24}/>
+        </button>
         
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-500"><ReceiptText size={28}/></div>
+          <div className="p-3 bg-brand-primary/10 rounded-2xl text-brand-primary">
+            <ReceiptText size={28}/>
+          </div>
           <div>
-            <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter leading-none">Checkout Jasa</h2>
-            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1 italic">Lengkapi detail untuk pembuatan invoice</p>
+            <h2 className="text-2xl font-bold text-white tracking-tight leading-tight">Checkout Jasa</h2>
+            <p className="text-slate-500 text-xs font-medium mt-1">Lengkapi detail untuk pembuatan invoice</p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Sesi Identitas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase italic flex items-center gap-2"><User size={10}/> Nama Lengkap</label>
-              <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-blue-500 outline-none transition-all" placeholder="Contoh: Budi Santoso"
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                <User size={12}/> Nama Lengkap
+              </label>
+              <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-brand-primary outline-none transition-all placeholder:text-slate-600" placeholder="Budi Santoso"
                 onChange={(e) => setFormData({...formData, nama: e.target.value})} />
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase italic flex items-center gap-2"><GraduationCap size={10}/> Instansi / Kampus</label>
-              <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-blue-500 outline-none transition-all" placeholder="Contoh: UMP"
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                <GraduationCap size={12}/> Instansi / Kampus
+              </label>
+              <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-brand-primary outline-none transition-all placeholder:text-slate-600" placeholder="UMP"
                 onChange={(e) => setFormData({...formData, instansi: e.target.value})} />
             </div>
           </div>
 
           {/* Sesi Pemilihan Jasa */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="relative space-y-2">
-              <label className="text-[10px] font-black text-slate-500 uppercase italic">Layanan Utama</label>
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Layanan Utama</label>
               <select 
                 value={formData.layananUtama}
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm appearance-none outline-none focus:border-blue-500 cursor-pointer"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm appearance-none outline-none focus:border-brand-primary cursor-pointer"
                 onChange={(e) => handleMainServiceChange(e.target.value)}
               >
-                {Object.keys(PRICING_STRUCTURE).map(key => <option key={key} value={key} className="bg-[#0b1120]">{key}</option>)}
+                {Object.keys(PRICING_STRUCTURE).map(key => <option key={key} value={key} className="bg-card">{key}</option>)}
               </select>
-              <ChevronDown className="absolute right-4 top-[46px] text-slate-500 pointer-events-none" size={14} />
+              <ChevronDown className="absolute right-4 top-[46px] text-slate-500 pointer-events-none" size={16} />
             </div>
 
             <div className="relative space-y-2">
-              <label className="text-[10px] font-black text-blue-500 uppercase italic">Sub-Jasa Spesifik</label>
+              <label className="text-xs font-bold text-brand-primary uppercase tracking-widest">Sub-Jasa Spesifik</label>
               <select 
                 value={formData.subLayanan}
-                className="w-full bg-blue-500/10 border border-blue-500/20 rounded-2xl px-5 py-3.5 text-white text-sm appearance-none outline-none focus:border-blue-500 cursor-pointer"
+                className="w-full bg-brand-primary/10 border border-brand-primary/20 rounded-2xl px-5 py-3.5 text-white text-sm appearance-none outline-none focus:border-brand-primary cursor-pointer"
                 onChange={(e) => setFormData({...formData, subLayanan: e.target.value})}
               >
                 {Object.keys(PRICING_STRUCTURE[formData.layananUtama]).map(sub => (
-                  <option key={sub} value={sub} className="bg-[#0b1120]">{sub}</option>
+                  <option key={sub} value={sub} className="bg-card">{sub}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-4 top-[46px] text-blue-500 pointer-events-none" size={14} />
+              <ChevronDown className="absolute right-4 top-[46px] text-brand-primary pointer-events-none" size={16} />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase italic flex items-center gap-2"><Calendar size={10}/> Deadline</label>
-                <input required type="date" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-blue-500 outline-none transition-all invert"
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                  <Calendar size={12}/> Deadline
+                </label>
+                <input required type="date" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-brand-primary outline-none transition-all invert"
                   onChange={(e) => setFormData({...formData, deadline: e.target.value})} />
               </div>
               <div className="flex items-end">
-                <label className="flex items-center gap-3 w-full bg-blue-500/5 border border-blue-500/20 rounded-2xl p-4 cursor-pointer hover:bg-blue-500/10 transition-all" 
+                <label className="flex items-center gap-3 w-full bg-brand-primary/5 border border-brand-primary/20 rounded-2xl p-4 cursor-pointer hover:bg-brand-primary/10 transition-all" 
                   onClick={() => setFormData({...formData, isUrgent: !formData.isUrgent})}>
-                  <input type="checkbox" checked={formData.isUrgent} onChange={() => {}} className="w-4 h-4 rounded border-white/10 text-blue-600 focus:ring-0 bg-transparent" />
-                  <span className="text-[10px] font-black text-slate-300 uppercase italic">Layanan Urgent (+50%)</span>
+                  <input type="checkbox" checked={formData.isUrgent} readOnly className="w-4 h-4 rounded border-white/10 text-brand-primary focus:ring-0 bg-transparent" />
+                  <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">Layanan Urgent (+50%)</span>
                 </label>
               </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-slate-500 uppercase italic">Catatan Tambahan</label>
-            <textarea rows={2} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-blue-500 outline-none transition-all resize-none" placeholder="Berikan detail tugas Anda..."
+            <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Catatan Tambahan</label>
+            <textarea rows={2} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-white text-sm focus:border-brand-primary outline-none transition-all resize-none placeholder:text-slate-600" placeholder="Berikan detail tugas Anda..."
               onChange={(e) => setFormData({...formData, detail: e.target.value})} />
           </div>
 
           {/* TOTAL HARGA FOOTER */}
-          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-black text-slate-500 uppercase italic leading-none mb-1">Estimasi Investasi</p>
-              <p className="text-3xl font-black text-white italic tracking-tighter">
+          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="text-center sm:text-left">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Estimasi Investasi</p>
+              <p className="text-3xl font-bold text-white tracking-tighter">
                 {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(totalHarga)}
               </p>
             </div>
-            <button type="submit" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-black uppercase italic py-4 px-10 rounded-[2rem] flex items-center justify-center gap-3 transition-all shadow-xl shadow-blue-600/20 active:scale-95">
+            <button type="submit" className="btn-primary w-full sm:w-auto py-4 px-10 rounded-2xl shadow-xl shadow-brand-primary/20">
               Kirim Invoice <Send size={18} />
             </button>
           </div>

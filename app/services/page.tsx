@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import { 
   Database, FileText, Layout, Zap, Search, Gem, Check, ArrowRight 
 } from "lucide-react";
@@ -21,7 +20,7 @@ const BUNDLE_PACKAGES = [
     features: ["Olah Data", "Uji Hipotesis", "Interpretasi MS Word", "Visualisasi", "Revisi 2x"],
     icon: <Database size={20} className="text-brand-primary" />,
     color: "from-brand-primary/20 to-blue-900/20",
-    borderColor: "border-brand-primary/50"
+    borderColor: "border-brand-primary/30"
   },
   {
     name: "Bundling Visual Presentasi",
@@ -32,7 +31,7 @@ const BUNDLE_PACKAGES = [
     features: ["Ringkasan Materi", "Desain PPT Premium", "Animasi Profesional", "Format PDF/PPTX", "Express < 24 Jam"],
     icon: <Layout size={20} className="text-purple-500" />,
     color: "from-purple-600/20 to-pink-600/20",
-    borderColor: "border-purple-500/50"
+    borderColor: "border-purple-500/30"
   }
 ];
 
@@ -61,13 +60,15 @@ function ServicesContent() {
 
       <div className="max-w-7xl mx-auto">
         <header className="mb-20">
-          <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-1.5 rounded-full mb-4">
-            <Search size={12} className="text-brand-primary" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary italic">Official Services</span>
+          <div className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-1.5 rounded-full mb-6">
+            <Search size={14} className="text-brand-primary" />
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-primary">Official Services</span>
           </div>
-          <h1>LAYANAN <span className="text-brand-primary">KAMI</span></h1>
-          <p className="text-secondary font-medium italic mt-6 max-w-2xl text-lg">
-            Solusi teknis akademik profesional. Pilih paket bundling untuk penawaran lebih hemat.
+          <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight">
+            LAYANAN <span className="text-brand-primary">KAMI</span>
+          </h1>
+          <p className="text-secondary font-medium mt-6 max-w-2xl text-lg leading-relaxed">
+            Solusi teknis akademik profesional. Pilih paket bundling untuk penawaran lebih hemat dan hasil yang lebih komprehensif.
           </p>
         </header>
 
@@ -75,7 +76,7 @@ function ServicesContent() {
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-12">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-brand-primary/30 to-transparent" />
-            <h2 className="flex items-center gap-3 text-2xl md:text-3xl">
+            <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-white">
               <Gem className="text-brand-primary" size={24} /> 
               Paket Bundling <span className="text-brand-primary">Hemat</span>
             </h2>
@@ -86,32 +87,32 @@ function ServicesContent() {
             {BUNDLE_PACKAGES.map((bundle, i) => (
               <div 
                 key={i}
-                className={`group glass-card p-8 rounded-[3rem] border ${bundle.borderColor} bg-gradient-to-br ${bundle.color} cursor-pointer hover:scale-[1.01] transition-all overflow-hidden relative`}
+                className={`group glass-card p-8 rounded-[2.5rem] border ${bundle.borderColor} bg-gradient-to-br ${bundle.color} cursor-pointer hover:scale-[1.01] transition-all overflow-hidden relative`}
                 onClick={() => { setActiveBundle(bundle); setIsBundleModalOpen(true); }}
               >
                 {/* Discount Badge */}
-                <div className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-black px-5 py-2 rounded-full uppercase rotate-12 z-10 shadow-lg">
-                  SAVE {parseInt(bundle.originalPrice) - parseInt(bundle.price)}K!
+                <div className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold px-5 py-2 rounded-full uppercase rotate-12 z-10 shadow-lg">
+                  HEMAT {parseInt(bundle.originalPrice) - parseInt(bundle.price)}K!
                 </div>
 
                 <div className="flex flex-col lg:flex-row justify-between gap-6 relative z-10">
                   <div className="flex-1">
-                    <h3 className="text-3xl font-black text-white italic uppercase mb-4">{bundle.name}</h3>
+                    <h3 className="text-2xl font-bold text-white mb-4">{bundle.name}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {bundle.features.map((feat, idx) => (
                         <div key={idx} className="flex items-center gap-2">
                           <Check size={14} className="text-brand-primary shrink-0" />
-                          <span className="text-[11px] font-bold text-secondary italic">{feat}</span>
+                          <span className="text-sm font-medium text-secondary">{feat}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                   
                   <div className="flex flex-col justify-end items-end shrink-0 border-t lg:border-t-0 lg:border-l border-white/10 pt-6 lg:pt-0 lg:pl-8">
-                    <span className="text-muted text-[10px] font-black line-through italic uppercase tracking-widest">{bundle.originalPrice}</span>
-                    <span className="text-5xl font-black text-white italic tracking-tighter">{bundle.price}</span>
-                    <button className="btn-primary mt-6 w-full lg:w-auto px-8 py-4 text-[10px] tracking-widest bg-white text-black hover:bg-brand-primary hover:text-white">
-                      Ambil Promo <ArrowRight size={14} />
+                    <span className="text-slate-500 text-xs font-bold line-through tracking-widest">{bundle.originalPrice}</span>
+                    <span className="text-5xl font-bold text-white tracking-tighter">{bundle.price}</span>
+                    <button className="btn-primary mt-6 w-full lg:w-auto px-8 py-3 text-sm font-semibold">
+                      Ambil Promo <ArrowRight size={16} />
                     </button>
                   </div>
                 </div>
@@ -123,20 +124,20 @@ function ServicesContent() {
         {/* Section Satuan */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 relative z-10">
           {Object.entries(serviceDetails).map(([slug, data]) => (
-            <div key={slug} className="group glass-card p-10 rounded-[3rem] hover:border-brand-primary/30 transition-all duration-500">
+            <div key={slug} className="group glass-card p-10 rounded-[2.5rem] border border-white/5 hover:border-brand-primary/30 transition-all duration-500">
               <div className="flex justify-between items-start mb-8">
                 <div className="w-16 h-16 bg-main border border-white/5 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:border-brand-primary/30 transition-all duration-500">
                   {getIcon(slug)}
                 </div>
                 <div className="text-right">
-                  <span className="text-muted text-[9px] font-black uppercase tracking-widest block italic">Mulai Dari</span>
-                  <span className="text-3xl font-black text-white italic tracking-tighter">{data.basePrice}</span>
+                  <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest block mb-1">Mulai Dari</span>
+                  <span className="text-3xl font-bold text-white tracking-tighter">{data.basePrice}</span>
                 </div>
               </div>
-              <h3 className="text-3xl font-black text-white uppercase italic mb-6">{data.title}</h3>
+              <h3 className="text-3xl font-bold text-white mb-6">{data.title}</h3>
               <button 
                 onClick={() => { setSelectedSlug(slug as ServiceSlug); setIsRegulerModalOpen(true); }}
-                className="flex items-center gap-3 text-brand-primary font-black uppercase italic text-xs tracking-[0.2em] hover:gap-5 transition-all w-fit"
+                className="flex items-center gap-2 text-brand-primary font-bold uppercase text-xs tracking-widest hover:gap-4 transition-all w-fit"
               >
                 Detail Paket <ArrowRight size={14} />
               </button>

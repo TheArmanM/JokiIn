@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
-/* Konfigurasi Tema v4 
-  Variabel di sini otomatis jadi utility class (misal: bg-brand-primary)
-*/
 @theme {
-  --color-main: #020617;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  
+  --color-main: #000a12;
   --color-card: #0b1120;
   --color-brand-primary: #3b82f6;
   
@@ -12,71 +11,66 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  --font-h1: clamp(2.5rem, 8vw, 6rem);
-  --font-h2: clamp(1.5rem, 5vw, 2.5rem);
+  --font-h1: clamp(2.5rem, 8vw, 5rem); /* Sedikit diperkecil agar tidak terlalu mendominasi */
+  --font-h2: clamp(1.5rem, 5vw, 2.25rem);
 }
 
-/* Base Styles: 
-  Menggunakan CSS murni agar tidak bentrok dengan Turbopack
-*/
 @layer base {
   body {
+    font-family: var(--font-sans);
     background-color: var(--color-main);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
   
   h1 {
+    font-family: var(--font-sans);
     font-size: var(--font-h1);
-    font-weight: 900; /* Ganti font-black */
-    font-style: italic; /* Ganti italic */
-    text-transform: uppercase; /* Ganti uppercase */
-    letter-spacing: -0.05em; /* Ganti tracking-tighter */
-    line-height: 1;
+    font-weight: 800; /* Turun dari 900 ke 800 agar lebih clean */
+    /* text-transform: uppercase; <--- DIHAPUS agar lebih natural */
+    letter-spacing: -0.02em; /* Jarak antar huruf dirapatkan sedikit saja */
+    line-height: 1.1;
   }
   
   h2 {
+    font-family: var(--font-sans);
     font-size: var(--font-h2);
-    font-weight: 900;
-    font-style: italic;
-    text-transform: uppercase;
-    letter-spacing: 0.1em; /* Ganti tracking-widest */
+    font-weight: 700; /* Turun ke 700 agar tidak kaku */
+    /* text-transform: uppercase; <--- DIHAPUS */
+    letter-spacing: -0.01em;
   }
 }
 
-/* Custom Components:
-  Gunakan kombinasi CSS murni & @apply yang aman (bukan class font/layout)
-*/
 @layer components {
   .glass-card {
     background-color: var(--color-card);
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(16px);
-    border-radius: 3rem;
-    transition: all 0.5s ease;
+    border-radius: 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-primary {
+    font-family: var(--font-sans);
     background-color: var(--color-brand-primary);
     color: white;
-    font-weight: 900;
-    font-style: italic;
-    text-transform: uppercase;
+    font-weight: 600; /* Gunakan Semi-bold saja agar ramah di mata */
+    /* text-transform: uppercase; <--- DIHAPUS */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 1.25rem 3rem;
-    border-radius: 2rem;
+    padding: 0.875rem 2rem;
+    border-radius: 1rem;
     transition: all 0.3s ease;
     border: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-size: 1rem; /* Ukuran teks standar yang nyaman */
+    cursor: pointer;
   }
 
   .btn-primary:hover {
     filter: brightness(1.1);
-    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -8px rgba(59, 130, 246, 0.5);
   }
 }
